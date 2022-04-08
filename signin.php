@@ -1,24 +1,39 @@
 <?php
+include('includes/connexion_bdd.php');
+require_once('./class/User.php');
+require_once('./class/UserDao.php');
+include('autoload.php');
 session_start();
+
+$bdd = connectDB();
+$userDao = new UserDao($bdd);
+$tab = $userDao->getAll();
+
 if(isset($_GET['deco'])){
   $_SESSION['auth'] = false;
   $_SESSION['user'] = [];
 }
 
-
+// Si ma methode est GET
 if($_SERVER['REQUEST_METHOD'] == "GET"){
 
+  // Si connexion email est set et rempli et pareil pour password
   if(isset($_GET['connexion_email']) && !empty($_GET['connexion_email']) && isset($_GET['connexion_password']) && !empty($_GET['connexion_password']) ){
 
-    for($i = 0; $i < count($_SESSION['tableau_utilisateur']); $i++){
+    // Loop sur mes utilisateurs
+    for($i = 0; $i < count($tab); $i++){
 
       $error_message = "";
 
-      if($_SESSION['tableau_utilisateur'][$i]['email'] == $_GET['connexion_email']){
+      // Si le mail du form correspond à celui d'un utilisateur
+      if($tab[$i]->getEmail() == $_GET['connexion_email']){
 
-       if(password_verify($_GET['connexion_password'], $_SESSION['tableau_utilisateur'][$i]['password'])){
+        // Si le mdp correspond au mdp de l'adresse mail
+       if(password_verify($_GET['connexion_password'], $tab[$i]->getPassword())){
 
-        $_SESSION['user'][0] = $_SESSION['tableau_utilisateur'][$i];
+        // Je suis connecté et mes infos sont stockés dans un tableau
+        $user = new User($tab[$i]);
+        $_SESSION['user'] = serialize($user);
         $_SESSION['auth'] = true;
         header('Location: ./index.php');
 
@@ -56,9 +71,11 @@ include('./includes/header.php');
     echo "<h1>Se connecter</h1>";
     ?>
 
+<!-- Form connexion -->
 <form method="get">
   <div class="mb-3">
     <?php
+      // Si un message d'erreur est stocké dans ma variable erreur, alors je l'invoque
       if(isset($error_message) && !empty($error_message)){
         echo "<div class='alert alert-danger' role='alert'>
         $error_message
