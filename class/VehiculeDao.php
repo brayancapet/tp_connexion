@@ -44,15 +44,7 @@ class VehiculeDao {
         $stmt->bindValue(1, $id_user, PDO::PARAM_INT);
         $stmt->execute();
         $donnes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        switch ($donnes['type']) {
-            case 'voiture':
-                $vehicule = new Voiture($donnes);
-                break;
-            case 'moto':
-                $vehicule = new Moto($donnes);
-                break;
-        }
-        return $vehicule;
+        return $donnes;
     }
     
     /**
@@ -90,8 +82,8 @@ class VehiculeDao {
     
 
     public function addVehicule($tab) {
-        $query = "INSERT INTO vehicule (couleur, id_marque, modele, cylindre, puissance, nb_roue, immat, type)
-        VALUES(:couleur, :id_marque, :modele, :cylindre, :puissance, :nb_roue, :immat, :type)";
+        $query = "INSERT INTO vehicule (couleur, id_marque, modele, cylindre, puissance, nb_roue, immat, type, id_user)
+        VALUES(:couleur, :id_marque, :modele, :cylindre, :puissance, :nb_roue, :immat, :type, :id_user)";
 
         $stmt = $this->_db->prepare($query);
         $stmt->bindValue(':couleur', $tab["couleur"], PDO::PARAM_STR);
@@ -102,6 +94,7 @@ class VehiculeDao {
         $stmt->bindValue(':nb_roue', $tab["nb_roue"], PDO::PARAM_INT);
         $stmt->bindValue(':immat', $tab["immat"], PDO::PARAM_STR);
         $stmt->bindValue(':type', $tab["type"], PDO::PARAM_STR);
+        $stmt->bindValue(':id_user', $tab["id_user"], PDO::PARAM_STR);
 
         $stmt->execute();
     }
@@ -130,6 +123,15 @@ class VehiculeDao {
         $stmt = $this->_db->prepare($query);
         $stmt->bindValue(1, $id, PDO::PARAM_STR);
         $stmt->execute();
+    }
+
+    public function getMarqueById($id_marque){
+        $query = "SELECT marque FROM marque WHERE id_marque = ?";
+        $stmt = $this->_db->prepare($query);
+        $stmt->bindValue(1, $id_marque, PDO::PARAM_INT);
+        $stmt->execute();
+        $donnes = $stmt->fetch();
+        return $donnes;
     }
 }
 ?>

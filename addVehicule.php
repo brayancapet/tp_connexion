@@ -9,8 +9,6 @@ require_once('./class/User.php');
 require_once('./class/Vehicule.php');
 require_once('./class/VehiculeDao.php');
 
-
-
 session_start();
 $bdd = connectDB();
 
@@ -18,8 +16,6 @@ $bdd = connectDB();
 $vehiculeDao = new VehiculeDao($bdd);
 // Gestion des erreurs de formulaires
 $error = false;
-
-var_dump(unserialize($_SESSION['user']));
 
 // Si session auth n'est pas défini
 if(!isset($_SESSION['auth'])){
@@ -32,17 +28,22 @@ if(isset($_GET['deco'])){
     // ALors je ne suis pas connecté et mon tableau user revient vide
     $_SESSION['auth'] = false;
     $_SESSION['user'] = [];
+    // Alors je suis redirigé vers la page de connexion
+    header('Location: ./signin.php');
+
 }
 
+$current_user = unserialize($_SESSION['user']);
 // Traitement de l'ajout du véhicule
 if (isset($_POST["id_marque"])) {
     if (!empty($_POST["id_marque"]) && !empty($_POST["couleur"]) 
     && !empty($_POST["puissance"]) && !empty($_POST["cylindre"]) 
     && !empty($_POST["nb_roue"]) && !empty($_POST["immat"]) 
     && !empty($_POST["type"]) && !empty($_POST["modele"])) {
-        // $vehiculeDao->addVehicule($_POST);
-        // header("Location: ./index.php");
-        var_dump($_POST);
+        $vehiculeDao->addVehicule($_POST);
+        header("Location: ./index.php");
+        
+        
         
     } else {
         $error = true;
@@ -125,7 +126,7 @@ include('./includes/nav.php');
                     </select>
                 </div>
                 <div class="mb-3">
-                    <input type="hidden" name="id_user"  id="id_user" value="">
+                    <input type="hidden" name="id_user"  id="id_user" value="<?=$current_user->getId_user()?>">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Enregistrer</button>

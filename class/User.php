@@ -1,6 +1,6 @@
 <?php
 class User {
-    private $id;
+    private $id_user;
     private $email;
     private $pseudo;
     private $password;
@@ -22,9 +22,9 @@ class User {
     /**
      * Get the value of id
      */
-    public function getId()
+    public function getId_user()
     {
-        return $this->id;
+        return $this->id_user;
     }
 
     /**
@@ -32,9 +32,9 @@ class User {
      * 
      * @return self
      */
-    public function setId($id)
+    public function setId_user($id_user)
     {
-        return $this->id = $id;
+        return $this->id_user = $id_user;
         return $this;
     }
 

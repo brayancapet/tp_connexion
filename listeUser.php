@@ -63,7 +63,7 @@ $tab = $userDao->getAll();
             echo "<tr>
             <td>{$user->getEmail()}</td>
             <td>{$user->getPseudo()}</td>
-            <td><button class='btn btn-danger' name='supprimer' type='submit' value='{$user->getId()}' >Supprimer</button></td>
+            <td><button class='btn btn-danger' name='supprimer' type='submit' value='{$user->getId_user()}' >Supprimer</button></td>
           </tr>";
     ?>
 

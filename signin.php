@@ -27,12 +27,14 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
       // Si le mail du form correspond à celui d'un utilisateur
       if($tab[$i]->getEmail() == $_GET['connexion_email']){
+        
         // Si le mdp correspond au mdp de l'adresse mail
        if(password_verify($_GET['connexion_password'], $tab[$i]->getPassword())){
 
         // Je suis connecté et mes infos sont stockés dans un tableau
         $user = new User($tab[$i]);
         
+
         $_SESSION['user'] = serialize($user);
         $_SESSION['auth'] = true;
         header('Location: ./index.php');

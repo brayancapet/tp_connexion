@@ -56,11 +56,11 @@ class UserDao {
     /**
      * Fonction servant à supprimer un utilisateur
      * 
-     * @param Int $id
+     * @param Int $id_user
      * @return void
      */
-    public function delete(Int $id) {
-        $this->_db->exec('DELETE FROM user WHERE id = '.$id);
+    public function delete(Int $id_user) {
+        $this->_db->exec('DELETE FROM user WHERE id = '.$id_user);
     }
 
     /**
@@ -77,12 +77,12 @@ class UserDao {
     /**
      * Fonction servant à récupérer un utilisateur en particulier
      * 
-     * @param int $id
+     * @param int $id_user
      * @return User
      */
-    public function get($id) {
-        $id = (int) $id;
-        $q = $this->_db->query('SELECT * FROM user WHERE id ='.$id);
+    public function get($id_user) {
+        $id_user = (int) $id_user;
+        $q = $this->_db->query('SELECT * FROM user WHERE id ='.$id_user);
 
         return $q->fetchObject(User::class);
     }
