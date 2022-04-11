@@ -58,64 +58,70 @@ include('./includes/nav.php');
 ?>
 
 
-        <div class="container w-50 m-auto">
-            <h1 class="m-auto">Ajout d'un véhicule</h1> 
+<div class="container w-50 m-auto">
+    <h1 class="m-auto">Ajout d'un véhicule</h1> 
 
-            <form action="#" method="post">
-                <?php 
-                if ($error) {
-                ?>
-                    <div class="alert alert-danger" role="alert">
-                    Veuillez remplir tous les champs
-                    </div>
-                <?php
-                }
-                ?>
-                <div class="mb-3">
-                    <label for="id_marque" class="form-label">Marque</label>
-                    <select class="form-select" aria-label="Marque du véhicule" name="id_marque" id="id_marque">
-                      <option selected>Séléctionner une marque</option>
-                      
-                      <?php
-                      $query= 'SELECT * FROM marque';
-                      $stmt= $bdd->query($query);
-                      $tableau = $stmt->fetchAll(); 
-                      
+    <form action="#" method="post">
+        <?php 
+            if ($error) {
+        ?>
+                <div class="alert alert-danger" role="alert">
+                Veuillez remplir tous les champs
+                </div>
+        <?php
+        }
+        ?>
+        <div class="mb-3">
+            <label for="id_marque" class="form-label">Marque</label>
+            <select class="form-select" aria-label="Marque du véhicule" name="id_marque" id="id_marque">
+            <option selected>Séléctionner une marque</option>
 
-                       for($i = 0; $i < count($tableau); $i++){
-                      ?>
+            <?php
+            $query= 'SELECT * FROM marque';
+            $stmt= $bdd->query($query);
+            $tableau = $stmt->fetchAll(); 
+                       
+                for($i = 0; $i < count($tableau); $i++){
+                    ?>
 
                         <option value="<?=$tableau[$i]["id_marque"]?>"><?=$tableau[$i]["marque"]?></option>
 
-                      <?php
-                        }
-                      ?>
-                    </select>
-                </div>
+                  <?php
+                }
+                  ?>
+            </select>
+        </div>
+
                 <div class="mb-3">
                     <label for="modele" class="form-label">Modele</label>
                     <input type="text" name="modele" class="form-control" id="modele">
                 </div>
+
                 <div class="mb-3">
                     <label for="couleur" class="form-label">Couleur</label>
                     <input type="text" name="couleur" class="form-control" id="couleur">
                 </div>
+
                 <div class="mb-3">
                     <label for="cylindre" class="form-label">Cylindre</label>
                     <input type="text" name="cylindre" class="form-control" id="cylindre">
                 </div>
+
                 <div class="mb-3">
                     <label for="puissance" class="form-label">Puissance</label>
                     <input type="text" name="puissance" class="form-control" id="puissance">
                 </div>
+
                 <div class="mb-3">
                     <label for="nb_roue" class="form-label">Roues</label>
                     <input type="number" name="nb_roue" class="form-control" id="nb_roue">
                 </div>
+
                 <div class="mb-3">
                     <label for="immat" class="form-label">Immatriculation</label>
                     <input type="text" name="immat" class="form-control" id="immat">
                 </div>
+
                 <div class="mb-3">
                     <label for="type" class="form-label">Type de véhicule</label>
                     <select class="form-select" name="type">
@@ -125,6 +131,7 @@ include('./includes/nav.php');
                         <option value="avion">Avion</option>
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <input type="hidden" name="id_user"  id="id_user" value="<?=$current_user->getId_user()?>">
                 </div>
