@@ -46,7 +46,7 @@ $tab = $userDao->getAll();
 ?>
 
 <body>
-    <h1>Liste de vos utilisateurs</h1>
+    <h1>Détails de votre compte</h1>
 
     <form action="#" method="GET">
     <table class="table">

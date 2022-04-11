@@ -16,11 +16,18 @@
           <a class="nav-link" href="./signup.php">S'inscrire</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./profil.php">Mon profil</a>
+          <a class="nav-link" href="./profil.php">Modifier profil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./listeUser.php">Liste utilisateurs</a>
+          <a class="nav-link" href="./addVehicule.php">Ajouter un véhicule</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./modifVehicule.php">Modifier un véhicule</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./listeUser.php">Détails profil</a>
+        </li>
+        
       </ul>
         <form method="get" action="#">
           <input type="text" class="visually-hidden" name="deco">
